@@ -1,0 +1,12 @@
+● To run multiple Go files in one command
+
+
+```
+go run main.go add.go sub.go
+```
+
+● or Initialize a Go Module (Recommended)
+
+```go mod init first_package```
+
+```go run .  ```  [ It runs all files together ]

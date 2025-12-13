@@ -82,11 +82,8 @@ func main() {
 **6) init Function**
 >init() হলো একটি special function
 >>- program শুরু হওয়ার আগে নিজে নিজে call হয়
-
 >>- manually call করা যায় না
-
 >>- একাধিক init() থাকতে পারে
-
 >>- func init must have no arguments and no return values
 
 >Call order
@@ -178,10 +175,10 @@ func add(a int, b int) int {
 
 **10) Higher order function or first class function (Treated as First class citizen)**
 >A higher-order function is a function that takes one or more functions as arguments, returns a function, or both. Go supports this capability because its functions are first-class citizens, meaning functions can be treated like any other value (assigned to variables, passed around, returned, etc.).
->>Rules
-    >>1. Parameter --> Function
-    >>2. Return --> Function
-    >>3. Both
+- Rules
+    - 1. Parameter --> Function
+    - 2. Return --> Function
+    - 3. Both
 
 - A first-class citizen (also called a first-class value) is a broader concept. It refers to any entity in a language that can:
     - Be assigned to a variable
@@ -205,23 +202,6 @@ func main () {
 
 ```
 
-```
-● Both
-
-func add (num1 int, num2 int) {
-	fmt.Println(num1 + num2)
-}
-
-func processOperation (a int, b int, op func(p int, q int)) func(x int, y int) {
-	op(a, b)
-
-    return add
-}
-
-func main () {
-	processOperation(2, 3, add)		// 5
-}
-```
 
 ```
 ● Return --> Function
@@ -241,6 +221,23 @@ func main() {
 }
 ```
 
+```
+● Both
+
+func add (num1 int, num2 int) {
+	fmt.Println(num1 + num2)
+}
+
+func processOperation (a int, b int, op func(p int, q int)) func(x int, y int) {
+	op(a, b)
+
+    return add
+}
+
+func main () {
+	processOperation(2, 3, add)		// 5
+}
+```
 
 **11) Callback Function**
 >যে function-টি অন্য function-এর parameter হিসেবে পাঠানো হয় এবং পরে call করা হয়।

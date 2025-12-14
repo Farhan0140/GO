@@ -4,7 +4,7 @@
 - Data Segment
 - Stack
 - Heap
-<!-- <img> -->
+![image alt](https://github.com/Farhan0140/GO/blob/9a0ff042621ddfc053d90019d1ee4d70c33b5cd6/024%20-%20Internal%20memory%2C%20Code%20Segment%2C%20Data%20Segment%2C%20Stack%2C%20Heap%2C%20GC/Screenshot%202025-12-14%20110359.png)
 ---
 
 **2️⃣ Code Segment (Text Segment)**

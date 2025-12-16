@@ -189,7 +189,7 @@ Person (struct)
 Each variable (`person1`, `person2`, `person3`) is a **separate instance** of the same struct layout.
 
 
-![image alt]()
+![image alt](https://github.com/Farhan0140/GO/blob/f29379b7fb81826092d6b8824ad2743a08a85d4f/Struct/Screenshot%202025-12-16%20113448.png)
 
 ---
 

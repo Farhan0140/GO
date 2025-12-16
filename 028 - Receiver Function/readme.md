@@ -158,3 +158,7 @@ user2 ─────┐
 | Call syntax       | `func(x)`       | `x.func()`        |
 | OOP style         | ❌               | ✅                 |
 | Interface support | ❌               | ✅                 |
+
+<br><br>
+
+![image alt](https://github.com/Farhan0140/GO/blob/170ea4472bd9f2b02cc7478ecf8fdae77b58c8ac/028%20-%20Receiver%20Function/Screenshot%202025-12-16%20191539.png)

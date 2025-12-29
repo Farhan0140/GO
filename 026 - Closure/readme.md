@@ -40,12 +40,6 @@ func init() {
 }
 ```
 
-1. Compilation: symbol resolution & memory layout planning
-1. Program startup: `init()` and runtime initialization
-1. Stack vs. heap allocation decisions (escape analysis)
-1. Closure internals: how Go implements them
-1. Full memory map during execution
-
 <br>
 
 # 🔧 1. Compilation Phase

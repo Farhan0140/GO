@@ -699,6 +699,6 @@ Heap Defer Nodes:
 4. Named return allows defer to change return value
 5. Defer list lives in **heap**, stack frame holds only pointer
 
-![image alt]("https://github.com/Farhan0140/GO/blob/7863fcc4b13386316fc0ac2b051cc6fec6480c38/040%20-%20Defer/Screenshot%202025-12-29%20200620.png")
-![image alt]("https://github.com/Farhan0140/GO/blob/7863fcc4b13386316fc0ac2b051cc6fec6480c38/040%20-%20Defer/Screenshot%202025-12-29%20225702.png")
-![image alt]("https://github.com/Farhan0140/GO/blob/7863fcc4b13386316fc0ac2b051cc6fec6480c38/040%20-%20Defer/Screenshot%202025-12-29%20225744.png")
+![image alt](https://github.com/Farhan0140/GO/blob/7863fcc4b13386316fc0ac2b051cc6fec6480c38/040%20-%20Defer/Screenshot%202025-12-29%20200620.png)
+![image alt](https://github.com/Farhan0140/GO/blob/7863fcc4b13386316fc0ac2b051cc6fec6480c38/040%20-%20Defer/Screenshot%202025-12-29%20225702.png)
+![image alt](https://github.com/Farhan0140/GO/blob/7863fcc4b13386316fc0ac2b051cc6fec6480c38/040%20-%20Defer/Screenshot%202025-12-29%20225744.png)

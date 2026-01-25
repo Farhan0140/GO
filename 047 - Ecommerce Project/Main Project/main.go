@@ -2,6 +2,7 @@ package main
 
 import (
 	"ecommerce/handlers"
+	"ecommerce/middleware"
 	"ecommerce/util"
 	"fmt"
 	"net/http"
@@ -10,9 +11,11 @@ import (
 func main() {
 	mux := http.NewServeMux() // Router
 
-	mux.Handle("GET /products", http.HandlerFunc(handlers.GetProducts))                // Route
-	mux.Handle("POST /products", http.HandlerFunc(handlers.CreateProduct))             // Route
-	mux.Handle("GET /products/{productID}", http.HandlerFunc(handlers.GetProductById)) // Route
+	mux.Handle("GET /test", middleware.Test(http.HandlerFunc(handlers.GetProducts)))
+
+	mux.Handle("GET /products", middleware.Logger(http.HandlerFunc(handlers.GetProducts)))                // Route
+	mux.Handle("POST /products", middleware.Logger(http.HandlerFunc(handlers.CreateProduct)))             // Route
+	mux.Handle("GET /products/{productID}", middleware.Logger(http.HandlerFunc(handlers.GetProductById))) // Route
 
 	fmt.Println("Server Running on port: 8080")
 

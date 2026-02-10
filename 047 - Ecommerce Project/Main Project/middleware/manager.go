@@ -14,20 +14,29 @@ func NewManager() *Manager {
 	}
 }
 
+
 func (mngr *Manager) Use(middlewares ...Middleware) {
 	mngr.globalMiddlewares = append(mngr.globalMiddlewares, middlewares...)
 }
 
+
 func (mngr *Manager) With(next http.Handler, middlewares ...Middleware) http.Handler {
-	n := next
+	h := next
 
 	for _, middleware := range middlewares {
-		n = middleware(n)
+		h = middleware(h)
 	}
+
+	return h
+}
+
+
+func (mngr *Manager) WrapMux(next http.Handler) http.Handler {
+	h := next
 
 	for _, gblMiddleware := range mngr.globalMiddlewares {
-		n = gblMiddleware(n)
+		h = gblMiddleware(h)
 	}
 
-	return n
+	return h
 }

@@ -1,7 +1,7 @@
 package routs
 
 import (
-	"ecommerce/rest/handlers"
+	"ecommerce/rest/handlers/product_handlers"
 	"ecommerce/rest/middlewares"
 	"net/http"
 )
@@ -41,7 +41,7 @@ func ProductRoutes(mux *http.ServeMux, manager *middlewares.Manager) {
 			http.HandlerFunc(handlers.UpdateProduct),
 		),
 	)
-	
+
 	mux.Handle(
 		"DELETE /products/{id}",
 		manager.With(

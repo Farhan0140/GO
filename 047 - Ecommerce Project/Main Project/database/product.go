@@ -14,13 +14,13 @@ func Store(prd Product) Product {	// Create an new product
 	_len := len(products)
 
 	if _len == 0 {
-		_len = 0
+		prd.ID = 0
+		products = append(products, prd)
 	} else {
 		_len--
+		prd.ID = products[_len].ID + 1
+		products = append(products, prd)
 	}
-	prd.ID = products[_len].ID + 1
-
-	products = append(products, prd)
 	return prd
 }
 

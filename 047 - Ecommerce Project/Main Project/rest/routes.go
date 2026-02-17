@@ -8,4 +8,5 @@ import (
 
 func InitRoutes(mux *http.ServeMux, manager *middlewares.Manager) {
 	routs.ProductRoutes(mux, manager)
+	routs.UserRoutes(mux, manager)
 }

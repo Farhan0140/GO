@@ -32,6 +32,7 @@ func ProductRoutes(mux *http.ServeMux, manager *middlewares.Manager) {
 		"POST /products",
 		manager.With(
 			http.HandlerFunc(handlers.CreateProduct),
+			middlewares.AuthenticateJWT,
 		),
 	)
 

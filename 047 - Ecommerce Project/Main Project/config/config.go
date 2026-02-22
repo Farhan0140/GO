@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+
 	"github.com/lpernett/godotenv"
 )
 
@@ -11,6 +12,7 @@ type Config struct {
 	Version     string
 	ServiceName string
 	HttpPort    int
+	SecretKey   string
 }
 
 var configuration Config
@@ -42,14 +44,21 @@ func loadConfig() {
 
 	port, _ := strconv.Atoi(httpPort)
 
-	configuration = Config {
-		Version: version,
+	jwtSecretKey := os.Getenv("JWT_SECRET_KEY")
+	if jwtSecretKey == "" {
+		fmt.Println("JWT Secret Key is required")
+		os.Exit(1)
+	}
+
+	configuration = Config{
+		Version:     version,
 		ServiceName: serviceName,
-		HttpPort: port,
+		HttpPort:    port,
+		SecretKey: jwtSecretKey,
 	}
 }
 
-func GetConfig () Config {
+func GetConfig() Config {
 	loadConfig()
 
 	return configuration

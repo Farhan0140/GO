@@ -17,7 +17,6 @@ type Payload struct {
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
 	Email     string `json:"email"`
-	Password  string `json:"password"`
 	IsAdmin   bool   `json:"is_admin"`
 }
 

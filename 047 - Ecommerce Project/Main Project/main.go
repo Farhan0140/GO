@@ -3,28 +3,20 @@ package main
 import (
 	"ecommerce/config"
 	"ecommerce/rest"
+	"ecommerce/rest/handlers/product"
+	"ecommerce/rest/handlers/user"
 )
-
 
 func main() {
 	cnf := config.GetConfig()
-	// fmt.Println(cnf.HttpPort)
-	// fmt.Println(cnf.ServiceName)
-	// fmt.Println(cnf.Version)
 
-	rest.Start(cnf)
+	productHandler := product.NewHandler()
+	userHandler := user.NewHandler()
 
-	// jwt, err := util.Create_JWT("Yoo-Mother-Fkr", util.Payload{
-	// 	ID: 34,
-	// 	FirstName: "Farhan",
-	// 	LastName: "Nadim",
-	// 	Email: "farhan@gmail.com",
-	// 	Password: "34-sdf@#",
-	// 	IsAdmin: true,
-	// })
-	// if err != nil {
-	// 	fmt.Println("Fuck you")
-	// }
-
-	// fmt.Println(jwt)
+	server := rest.NewServer(
+		cnf,
+		productHandler,
+		userHandler,
+	)
+	server.Start()
 }

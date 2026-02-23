@@ -1,37 +1,36 @@
-package routs
+package product
 
 import (
-	"ecommerce/rest/handlers/product_handlers"
 	"ecommerce/rest/middlewares"
 	"net/http"
 )
 
-func ProductRoutes(mux *http.ServeMux, manager *middlewares.Manager) {
+func (h *Handler) RegisterRoutes(mux *http.ServeMux, manager *middlewares.Manager) {
 	mux.Handle(
 		"GET /test",
 		manager.With(
-			http.HandlerFunc(handlers.GetProducts),
+			http.HandlerFunc(h.GetProducts),
 		),
 	)
 
 	mux.Handle(
 		"GET /products",
 		manager.With(
-			http.HandlerFunc(handlers.GetProducts),
+			http.HandlerFunc(h.GetProducts),
 		),
 	)
 
 	mux.Handle(
 		"GET /products/{id}",
 		manager.With(
-			http.HandlerFunc(handlers.GetProductById),
+			http.HandlerFunc(h.GetProductById),
 		),
 	)
 
 	mux.Handle(
 		"POST /products",
 		manager.With(
-			http.HandlerFunc(handlers.CreateProduct),
+			http.HandlerFunc(h.CreateProduct),
 			middlewares.AuthenticateJWT,
 		),
 	)
@@ -39,14 +38,14 @@ func ProductRoutes(mux *http.ServeMux, manager *middlewares.Manager) {
 	mux.Handle(
 		"PUT /products/{id}",
 		manager.With(
-			http.HandlerFunc(handlers.UpdateProduct),
+			http.HandlerFunc(h.UpdateProduct),
 		),
 	)
 
 	mux.Handle(
 		"DELETE /products/{id}",
 		manager.With(
-			http.HandlerFunc(handlers.DeleteProduct),
+			http.HandlerFunc(h.DeleteProduct),
 		),
 	)
 }

@@ -5,3 +5,4 @@
 - [Page 2](docs/page2.md) ->  Middleware
 - [Page 3](docs/page3.md) ->  Creating `JWT` manually & Using Library
 - [Page 4](docs/page4.md) ->  057 - Remove Tight Coupling
+- [Page 5](docs/page5.md) ->  Dependency and Dependency Injection in Golang

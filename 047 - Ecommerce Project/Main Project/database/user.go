@@ -23,7 +23,7 @@ func (u User) Store() User {
 		users = append(users, u)
 	} else {
 		_len--
-		u.ID = products[_len].ID + 1
+		u.ID = users[_len].ID + 1
 		users = append(users, u)
 	}
 

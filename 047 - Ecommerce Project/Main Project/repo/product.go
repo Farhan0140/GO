@@ -1,4 +1,4 @@
-package database
+package repo
 
 type Product struct {
 	ID          int     `json:"id"` // For customize json
@@ -8,61 +8,79 @@ type Product struct {
 	ImageURL    string  `json:"img"`
 }
 
-var products []Product
+type ProductRepo interface {
+	Create(prd Product) (*Product, error)
+	Get(productID int) (*Product, error)
+	List()	(*[]Product, error)
+	Update(prd Product) (*Product, error)
+	Delete(productID int) error
+}
 
-func Store(prd Product) Product {	// Create an new product
-	_len := len(products)
+type productRepo struct {
+	products []Product
+}
+
+func NewProductRepo() ProductRepo {
+	pList := &productRepo{}
+
+	GenerateInitialProducts(pList)
+	return pList
+}
+
+func (p *productRepo) Create(prd Product) (*Product, error) {
+	_len := len(p.products)
 
 	if _len == 0 {
 		prd.ID = 0
-		products = append(products, prd)
+		p.products = append(p.products, prd)
 	} else {
 		_len--
-		prd.ID = products[_len].ID + 1
-		products = append(products, prd)
+		prd.ID = p.products[_len].ID + 1
+		p.products = append(p.products, prd)
 	}
-	return prd
+	return &prd, nil
 }
 
-func List() []Product {		// Get all product list
-	return products
-}
-
-func Get(productID int) *Product {		// Get specific Product by ID
-	for _, prd := range products {
+func (p *productRepo) Get(productID int) (*Product, error) {
+	for _, prd := range p.products {
 		if prd.ID == productID {
-			return &prd
+			return &prd, nil
 		}
 	}
 
-	return nil
+	return nil, nil
 }
 
-func Update(prd Product) Product {
+func (p *productRepo) List() (*[]Product, error) {
+	return &p.products, nil
+}
+
+func (p *productRepo) Update(prd Product) (*Product, error) {
 	var new_product Product
-	for idx, product := range products {
+	for idx, product := range p.products {
 		if product.ID == prd.ID {
-			products[idx] = prd
-			new_product = products[idx]
+			p.products[idx] = prd
+			new_product = p.products[idx]
 		}
 	}
 
-	return new_product
+	return &new_product, nil
 }
 
-func Delete(productID int) {
+func (p *productRepo) Delete(productID int) error {
 	var temp []Product
 
-	for _, product := range products {
+	for _, product := range p.products {
 		if product.ID != productID {
 			temp = append(temp, product)
 		}
 	}
 
-	products = temp
+	p.products = temp
+	return nil
 }
 
-func init() {
+func GenerateInitialProducts(p *productRepo) {
 	prd1 := Product{
 		ID:          1,
 		Title:       "Orange",
@@ -143,8 +161,8 @@ func init() {
 		ImageURL:    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQguava",
 	}
 
-	products = append(
-		products,
+	p.products = append(
+		p.products,
 		prd1,
 		prd2,
 		prd3,

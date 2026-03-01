@@ -14,9 +14,10 @@ func main() {
 
 	middlewares := middlewares.NewMiddlewares(cnf)
 	productRepo := repo.NewProductRepo()
+	userRepo := repo.NewUserRepo()
 
 	productHandler := product.NewHandler(middlewares, productRepo)
-	userHandler := user.NewHandler()
+	userHandler := user.NewHandler(cnf, userRepo)
 
 	server := rest.NewServer(
 		cnf,

@@ -1,12 +1,20 @@
 package repo
 
+import (
+	"database/sql"
+	"fmt"
+
+	"github.com/jmoiron/sqlx"
+	"golang.org/x/crypto/bcrypt"
+)
+
 type User struct {
-	ID        int    `json:"id"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Email     string `json:"email"`
-	Password  string `json:"password"`
-	IsAdmin   bool   `json:"is_admin"`
+	ID        int    `json:"id" db:"id"`
+	FirstName string `json:"first_name" db:"first_name"`
+	LastName  string `json:"last_name" db:"last_name"`
+	Email     string `json:"email" db:"email"`
+	Password  string `json:"password" db:"password"`
+	IsAdmin   bool   `json:"is_admin" db:"is_admin"`
 }
 
 type UserRepo interface {
@@ -19,35 +27,89 @@ type UserRepo interface {
 }
 
 type userRepo struct {
-	users []User
+	db *sqlx.DB
 }
 
-func NewUserRepo() UserRepo {
-	return &userRepo{}
+func NewUserRepo(db *sqlx.DB) UserRepo {
+	return &userRepo{
+		db: db,
+	}
 }
 
 func (u *userRepo) Create(user User) (*User, error) {
-	_len := len(u.users)
-
-	if _len == 0 {
-		user.ID = 0
-		u.users = append(u.users, user)
-	} else {
-		_len--
-		user.ID = u.users[_len].ID + 1
-		u.users = append(u.users, user)
+	// Hash password
+	hashedPassword, err := bcrypt.GenerateFromPassword(
+		[]byte(user.Password),
+		bcrypt.DefaultCost,
+	)
+	if err != nil {
+		return nil, err
 	}
 
-	u.users = append(u.users, user)
-	return &user, nil
+	user.Password = string(hashedPassword)
+
+	query := `
+		INSERT INTO users (
+			first_name, 
+			last_name, 
+			email, 
+			password, 
+			is_admin
+		)
+		VALUES (
+			:first_name,
+			:last_name,
+			:email,
+			:password,
+			:is_admin
+		)
+		RETURNING id
+	`
+
+	var userId int
+	rows, err := u.db.NamedQuery(query, user)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	if rows.Next() {
+		rows.Scan(&userId)
+	}
+
+	user.ID = userId
+
+	fmt.Println("New User Id ", userId)
+	return &user, err
 }
 
 func (u *userRepo) Find(email, password string) (*User, error) {
-	for _, usr := range u.users {
-		if usr.Email == email && usr.Password == password {
-			return &usr, nil
+	var user User
+	query := `
+		SELECT id, first_name, last_name, email, password, is_admin
+		FROM users
+		WHERE email = $1
+		LIMIT 1
+	`
+
+	err := u.db.Get(&user, query, email)
+	if err != nil {
+		fmt.Println(err)
+		if err == sql.ErrNoRows {
+			return nil, nil
 		}
+
+		return nil, err
 	}
 
-	return nil, nil
+	err = bcrypt.CompareHashAndPassword(
+		[]byte(user.Password),
+		[]byte(password),
+	)
+	if err != nil {
+		fmt.Println(err)
+		return nil, nil
+	}
+
+	return &user, nil
 }

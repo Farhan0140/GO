@@ -8,8 +8,8 @@ import (
 )
 
 type requestLogin struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Email    string `json:"email" db:"email"`
+	Password string `json:"password" db:"password"`
 }
 
 func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {

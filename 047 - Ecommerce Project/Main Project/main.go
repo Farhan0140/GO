@@ -14,7 +14,7 @@ import (
 
 func main() {
 	cnf := config.GetConfig()
-	dbCon, err := db.NewConnection()
+	dbCon, err := db.NewConnection(cnf.DB)
 	
 	if err != nil {
 		fmt.Println(err)
@@ -22,7 +22,7 @@ func main() {
 	}
 
 	middlewares := middlewares.NewMiddlewares(cnf)
-	productRepo := repo.NewProductRepo()
+	productRepo := repo.NewProductRepo(dbCon)
 	userRepo := repo.NewUserRepo(dbCon)
 
 	productHandler := product.NewHandler(middlewares, productRepo)

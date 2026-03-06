@@ -1,0 +1,9 @@
+CREATE TABLE products (
+    id BIGSERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL CHECK (length(title) > 0),
+    description TEXT,
+    price DOUBLE PRECISION NOT NULL,
+    image_url TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);

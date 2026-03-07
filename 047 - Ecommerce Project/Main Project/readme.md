@@ -8,3 +8,4 @@
 - [Page 5](docs/page5.md) ->  Dependency and Dependency Injection in Golang
 - [Page 6](docs/page6.md) ->  Design Patterns -> Singleton Design Pattern
 - [Page 7](docs/page7.md) ->  Design Patterns -> Repository Design Pattern
+- [Page 8](docs/page8.md) ->  Design Patterns -> Domain-Driven Design Pattern
